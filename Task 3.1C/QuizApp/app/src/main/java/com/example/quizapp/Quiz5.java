@@ -13,23 +13,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Quiz1 extends AppCompatActivity {
+public class Quiz5 extends AppCompatActivity {
 
     private Button selectedButton = null;
-    private int correctAnswerId = R.id.buttonAnswer2;
+    private int correctAnswerId = R.id.buttonAnswer1;
     private boolean isAnswered = false;
-    public int score = 0;
+    public int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_quiz1);
+        setContentView(R.layout.activity_quiz5);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        score = getIntent().getExtras().getInt("score");
 
         TextView welcomeText = findViewById(R.id.welcomeText);
         TextView progressText = findViewById(R.id.progressText);
@@ -40,7 +42,7 @@ public class Quiz1 extends AppCompatActivity {
 
         String name = getIntent().getStringExtra("name");
         welcomeText.setText("Welcome " + name);
-        progressText.setText("1/5");
+        progressText.setText("5/5");
 
         View.OnClickListener answerClickListener = v -> {
             resetButtonColors(buttonAnswer1, buttonAnswer2, buttonAnswer3);
@@ -67,7 +69,7 @@ public class Quiz1 extends AppCompatActivity {
                 }
             }
             else {
-                Intent intent = new Intent(Quiz1.this, Quiz2.class);
+                Intent intent = new Intent(Quiz5.this, Result.class);
                 intent.putExtra("score", score);
                 startActivity(intent);
             }
